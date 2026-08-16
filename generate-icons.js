@@ -1,0 +1,28 @@
+import fs from 'fs';
+import path from 'path';
+
+// Create SVG icon
+const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#a855f7" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="url(#grad)" />
+  <circle cx="64" cy="64" r="44" fill="#0f172a" opacity="0.85" />
+  <path d="M64 36 V64 L84 76" stroke="#f8fafc" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none" filter="url(#glow)" />
+  <circle cx="64" cy="64" r="6" fill="#6366f1" />
+</svg>`;
+
+const iconDir = path.resolve('public');
+if (!fs.existsSync(iconDir)) {
+  fs.mkdirSync(iconDir, { recursive: true });
+}
+
+fs.writeFileSync(path.join(iconDir, 'icon.svg'), svg);
+console.log('Icon generated at public/icon.svg');

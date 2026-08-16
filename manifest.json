@@ -1,0 +1,46 @@
+{
+  "manifest_version": 3,
+  "name": "Past-Self: Distraction & Intention System",
+  "version": "1.0.0",
+  "description": "A local-first behavioral system for preserving intention across moments of digital temptation using implementation intentions and past-self reflections.",
+  "icons": {
+    "128": "icon.svg"
+  },
+  "permissions": [
+    "storage",
+    "alarms",
+    "webNavigation",
+    "tabs",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "service-worker.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Past-Self Distraction System"
+  },
+  "options_ui": {
+    "page": "dashboard.html",
+    "open_in_tab": true
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "all_frames": false
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["content.css", "dashboard.html", "popup.html", "assets/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
